@@ -97,10 +97,11 @@ def update():
         runPage = False
         startPage = True
 button1 = Button(screen,screenSize - 100, screenSize - 50, 60, 30, WHITE, GREY, BLUE, textcolour = BLACK, textcolour2 = BLACK, TEXT = "Return")
-startButton = []
+runButton = [button1]
 
 def startPage():
     screen.fill((0,0,0))
+
     button2.show()
     button3.show()
     button4.show()
@@ -114,12 +115,11 @@ def startPage():
         pass
     if button4.leftClicked():
         global run
-        run = Fasle
-
-
+        run = False
 button2 = Button(screen,screenSize/2, screenSize/2 - 50, 150, 40, WHITE, GREY, BLUE, textcolour = BLACK, textcolour2 = BLACK, TEXT = "Start")
 button3 = Button(screen,screenSize/2, screenSize/2, 150, 40, WHITE, GREY, BLUE, textcolour = BLACK, textcolour2 = BLACK, TEXT = "Instructions")
 button4 = Button(screen,screenSize/2, screenSize/2 + 50, 150, 40, WHITE, GREY, BLUE, textcolour = BLACK, textcolour2 = BLACK, TEXT = "Quit")
+startButton = [button2,button3,button4]
 
 startPage = True
 runPage = False
