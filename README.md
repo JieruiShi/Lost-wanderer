@@ -7,4 +7,4 @@ python, pygame module installed
 
 ## Author
 
-* **Jerry** - *Initial work* - [LostwandererJerry](https://github.com/LostwandererJerry)
+* **Jerry** - [LostwandererJerry](https://github.com/LostwandererJerry)
