@@ -6,7 +6,7 @@ from Buttons import Button
 #initializing
 pygame.init()
 clock = pygame.time.Clock()
-screenSize = 800
+screenSize = 600
 screen = pygame.display.set_mode((screenSize,screenSize))
 pygame.display.set_caption("Lostwanderer 1.0")
 RED = (255,0,0)
@@ -87,16 +87,13 @@ def update():
     Jerry.display()
     pygame.draw.rect(screen,(255,0,0),(Jerry.xstart - 2,Jerry.ystart - 2,5,5))
     showWord("A lost wanderer is moving two pixels per step.", (20, 50), size = 18)
-    showWord("The green circle indicates the furthest distance from the initial position.", (20, 70), size = 18)
+    showWord("The green circle indicates the furthest distance", (20, 70), size = 18)
+    showWord("from the initial position.", (20, 90), size = 18)
     showWord("Steps:" + "    " + str(stepCount), (screenSize - 200, 50))
     showWord("Max Distance:" + str(round(Jerry.distance_max,2)), (screenSize - 200, 80))
     button1.show()
     pygame.display.update()
-    if button1.leftClicked():
-        global runPage
-        global startPage
-        runPage = False
-        startPage = True
+
 button1 = Button(screen,screenSize - 100, screenSize - 50, 60, 30, WHITE, GREY, BLUE, textcolour = BLACK, textcolour2 = BLACK, TEXT = "Return")
 runButton = [button1]
 
@@ -135,6 +132,9 @@ while run:
         clock.tick(100)
         stepChange()
         update()
+        if button1.leftClicked():
+            runPage = False
+            startPage = True
 
     elif startPage:
         clock.tick(50)
