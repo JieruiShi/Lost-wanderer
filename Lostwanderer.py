@@ -69,7 +69,7 @@ class wanderer:
             pygame.draw.rect(self.canvas, (255, 255, 255), (n[0], n[1], 1, 1))
         pygame.draw.circle(self.canvas, (0, 255, 0), (int(self.xstart), int(self.ystart)), int(self.distance_max), 1)
 
-Jerry = (screenSize/2,screenSize/2,2)
+Jerry = wanderer(screenSize/2,screenSize/2,2)
 
 def showWord(text,position,colour = WHITE, size = 20):
     myFont = pygame.font.SysFont("Times New Roman", size)
