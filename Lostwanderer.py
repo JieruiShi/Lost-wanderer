@@ -19,7 +19,7 @@ GREY = (127,127,127)
 stepCount = 0
 
 
-class people:
+class wanderer:
     """define the start position x,y,velocity, and canvas to draw the images on"""
     def __init__(self,x,y,vel,canvas = screen):
         self.x = x
@@ -69,7 +69,7 @@ class people:
             pygame.draw.rect(self.canvas, (255, 255, 255), (n[0], n[1], 1, 1))
         pygame.draw.circle(self.canvas, (0, 255, 0), (int(self.xstart), int(self.ystart)), int(self.distance_max), 1)
 
-Jerry = people(screenSize/2,screenSize/2,2)
+Jerry = (screenSize/2,screenSize/2,2)
 
 def showWord(text,position,colour = WHITE, size = 20):
     myFont = pygame.font.SysFont("Times New Roman", size)
