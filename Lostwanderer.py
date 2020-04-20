@@ -1,7 +1,7 @@
 import random
 import pygame
 import math
-from miscellaneous.Buttons import Button
+from Buttons import Button
 
 #initializing
 pygame.init()
