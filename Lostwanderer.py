@@ -16,7 +16,6 @@ BLACK = (0,0,0)
 WHITE = (255,255,255)
 GREY = (127,127,127)
 
-stepCount = 0
 
 
 class wanderer:
@@ -76,6 +75,8 @@ def showWord(text,position,colour = WHITE, size = 20):
     myText = myFont.render(text,True,colour)
     screen.blit(myText,position)
 
+#runPage
+stepCount = 0
 def stepChange():
     Jerry.randommove()
     Jerry.update_position_and_distance()
@@ -99,6 +100,7 @@ def update():
 button1 = Button(screen,screenSize - 100, screenSize - 50, 60, 30, WHITE, GREY, BLUE, textcolour = BLACK, textcolour2 = BLACK, TEXT = "Return")
 runButton = [button1]
 
+#startPage
 def startPage():
     screen.fill((0,0,0))
     for button in startButton:
@@ -121,7 +123,7 @@ startButton = [button2,button3,button4]
 
 startPage = True
 runPage = False
-settingPage = False
+settingsPage = False
 
 run = True
 while run:
@@ -137,9 +139,8 @@ while run:
     elif startPage:
         clock.tick(50)
         screen.fill((0, 0, 0))
-        button2.show()
-        button3.show()
-        button4.show()
+        for button in startButton:
+            button.show()
         pygame.display.update()
         if button2.leftClicked():
             runPage = True
@@ -149,5 +150,5 @@ while run:
         if button4.leftClicked():
             run = False
 
-    elif infoPage:
+    elif settingsPage:
         pass
