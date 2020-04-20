@@ -101,10 +101,8 @@ runButton = [button1]
 
 def startPage():
     screen.fill((0,0,0))
-
-    button2.show()
-    button3.show()
-    button4.show()
+    for button in startButton:
+        button.show()
     pygame.display.update()
     if button2.leftClicked():
         global runPage
