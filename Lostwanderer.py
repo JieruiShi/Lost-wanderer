@@ -128,8 +128,13 @@ button3 = Button(screen,screenSize/2, screenSize/2, 150, 40, WHITE, GREY, BLUE, 
 button4 = Button(screen,screenSize/2, screenSize/2 + 50, 150, 40, WHITE, GREY, BLUE, textcolour = BLACK, textcolour2 = BLACK, TEXT = "Quit")
 startButtons = [button2,button3,button4]
 
-#def pauseUpdate():
-
+#pausePage
+def pauseContent():
+    pygame.draw.rect(screen, GREY, (0, screenSize - 120, screenSize, 120))
+    showWord("Paused", (screenSize / 2 - 25, screenSize - 80), WHITE)
+    showWord("Click anywhere to resume", (screenSize / 2 - 100, screenSize - 40), WHITE)
+    pygame.display.update()
+    pygame.time.delay(500)
 
 startPage = True
 runPage = False
@@ -153,14 +158,11 @@ while run:
             startPage = True
             Jerry.clearData()
         if button5.leftClicked():
+            #pause button, content updated only once
             fps = 20
             runPage = False
             pausePage = True
-            pygame.draw.rect(screen, GREY, (0, screenSize - 120, screenSize, 120))
-            showWord("Paused", (screenSize / 2 - 25, screenSize - 80), WHITE)
-            showWord("Click anywhere to resume", (screenSize / 2 - 100, screenSize - 40), WHITE)
-            pygame.display.update()
-            pygame.time.delay(500)
+            pauseContent()
 
     elif startPage:
         startUpdate()
@@ -181,4 +183,5 @@ while run:
             pausePage = False
             runPage = True
             fps = 100
+
 
