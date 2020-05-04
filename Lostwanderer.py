@@ -7,7 +7,7 @@ import matplotlib
 #initializing
 pygame.init()
 clock = pygame.time.Clock()
-screenSize = 600
+screenSize = 700
 screen = pygame.display.set_mode((screenSize,screenSize))
 pygame.display.set_caption("Lostwanderer 1.0")
 RED = (255,0,0)
@@ -83,13 +83,17 @@ class wanderer:
         self.y = self.ystart
         self.stepCount = 0
 
-
 Jerry = wanderer(screenSize/2,screenSize/2,2)
 
 def showWord(text,position,colour = WHITE, size = 20):
     myFont = pygame.font.SysFont("Times New Roman", size)
     myText = myFont.render(text,True,colour)
     screen.blit(myText,position)
+
+def isIn(coordinates, area):
+    """used to determine whether a coordinates has both its x and y values within the range of area that we want,boundary inclusive
+    area should be tuple of tuple((xmin,xmax),(ymin,ymax))"""
+    return coordinates[0]>= area[0][0] and coordinates[0] <= area[0][1] and coordinates[1]>= area[1][0] and coordinates[1] <= area[1][1]
 
 #runPage
 def stepChange():
@@ -104,49 +108,66 @@ def update():
     showWord("from the initial position.", (20, 90), size = 18)
     showWord("Steps:" + "    " + str(Jerry.stepCount), (screenSize - 200, 50))
     showWord("Max Distance:" + str(round(Jerry.distance_max,2)), (screenSize - 200, 80))
-    button1.show()
+    for button in runButtons:
+        button.show()
     pygame.display.update()
 
 button1 = Button(screen,screenSize - 100, screenSize - 50, 60, 30, WHITE, GREY, BLUE, textcolour = BLACK, textcolour2 = BLACK, TEXT = "Return")
-runButton = [button1]
+button5 = Button(screen,screenSize - 100, screenSize - 100, 60, 30, WHITE, GREY, BLUE, textcolour = BLACK, textcolour2 = BLACK, TEXT = "Pause")
+runButtons = [button1,button5]
 
 #startPage
 def startUpdate():
     screen.fill((0,0,0))
-    for button in startButton:
+    for button in startButtons:
         button.show()
     pygame.display.update()
 
 button2 = Button(screen,screenSize/2, screenSize/2 - 50, 150, 40, WHITE, GREY, BLUE, textcolour = BLACK, textcolour2 = BLACK, TEXT = "Start")
 button3 = Button(screen,screenSize/2, screenSize/2, 150, 40, WHITE, GREY, BLUE, textcolour = BLACK, textcolour2 = BLACK, TEXT = "Settings")
 button4 = Button(screen,screenSize/2, screenSize/2 + 50, 150, 40, WHITE, GREY, BLUE, textcolour = BLACK, textcolour2 = BLACK, TEXT = "Quit")
-startButton = [button2,button3,button4]
+startButtons = [button2,button3,button4]
+
+#def pauseUpdate():
+
 
 startPage = True
 runPage = False
 settingsPage = False
+pausePage = False
+fps = 20
 
 run = True
 while run:
+    clock.tick(fps)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
 
     if runPage:
-        clock.tick(100)
         stepChange()
         update()
         if button1.leftClicked():
+            fps = 20
             runPage = False
             startPage = True
             Jerry.clearData()
+        if button5.leftClicked():
+            fps = 20
+            runPage = False
+            pausePage = True
+            pygame.draw.rect(screen, GREY, (0, screenSize - 120, screenSize, 120))
+            showWord("Paused", (screenSize / 2 - 25, screenSize - 80), WHITE)
+            showWord("Click anywhere to resume", (screenSize / 2 - 100, screenSize - 40), WHITE)
+            pygame.display.update()
+            pygame.time.delay(500)
 
     elif startPage:
-        clock.tick(50)
         startUpdate()
         if button2.leftClicked():
             runPage = True
             startPage = False
+            fps = 100
         if button3.leftClicked():
             pass
         if button4.leftClicked():
@@ -154,3 +175,10 @@ while run:
 
     elif settingsPage:
         pass
+
+    elif pausePage:
+        if pygame.mouse.get_pressed()[0] and isIn(pygame.mouse.get_pos(),((0,screenSize),(0,screenSize))):
+            pausePage = False
+            runPage = True
+            fps = 100
+
